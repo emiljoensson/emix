@@ -1,8 +1,15 @@
+#! /usr/bin/env python3
 from sqlalchemy import Column, Integer, String
-from database import Base, ma
+from flask_marshmallow import Marshmallow
+from database import Base
 
-class Machines(Base):
-    __tablename__ = 'machines'
+ma = Marshmallow()
+
+""""
+Class: Machine
+"""
+class Machine(Base):
+    __tablename__ = 'machine'
     id = Column(Integer, primary_key=True)
     hostname = Column(String(50), unique=False)
     image = Column(String(50), unique=False)
@@ -14,6 +21,8 @@ class Machines(Base):
     def __repr__(self):
         return "<Machine(id='%s', hostname='%s', image='%s')>" % (self.id, self.hostname, self.image)
 
-class MachinesSchema(ma.ModelSchema):
+# Marshmallow class used to serialize query output to JSON
+class MachineSchema(ma.ModelSchema):
     class Meta:
-        model = Machines
+        # Fields to expose
+        fields = ('id', 'hostname', 'image')

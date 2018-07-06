@@ -4,3 +4,4 @@ __pycache__
 lib
 test.db
 app.yaml
+.pytest_cache
